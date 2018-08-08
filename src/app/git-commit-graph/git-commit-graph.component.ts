@@ -9,6 +9,8 @@ import * as d3 from 'd3';
 })
 export class GitCommitGraphComponent implements OnInit {
 
+  // TODO: look into small screen issues, possibly implement a timeline thing?
+
   data: any;
   options: any;
 
