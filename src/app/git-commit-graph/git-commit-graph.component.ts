@@ -17,11 +17,11 @@ export class GitCommitGraphComponent implements OnInit {
   color: any;
 
   @ViewChild('chart') chart: UIChart;
-  @ViewChild('legend') legend: any;
+  // @ViewChild('legend') legend: any;
 
   constructor() {
 
-    this.color = d3.scaleOrdinal(d3.schemeCategory20).range();
+    this.color = d3.scaleOrdinal(d3.schemeCategory10).range();
 
     this.data = {
       labels: ['Jun 26', 'Jun 27', 'Jun 28', 'Jun 29', 'Jun 30', 'Jul 1', 'Jul 2'],
@@ -29,46 +29,41 @@ export class GitCommitGraphComponent implements OnInit {
         {
           label: 'Apurva Mehta',
           data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: '#4bc0c0'
+          fill: false
         },
         {
           label: 'Farneet Khehra',
           data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: '#565656'
+          fill: false
         },
         {
           label: 'Alex Zhao',
           data: [1, 71, 5, 19, 6, 3, 90],
-          fill: false,
-          borderColor: '#185729'
+          fill: false
         },
         {
           label: 'Alex Zhao 2',
           data: [1, 1, 1, 1, 1, 1, 1],
-          fill: false,
-          borderColor: '#123456'
+          fill: false
         },
         {
           label: 'Alex Zhao 3',
           data: [10, 11, 12, 13, 14, 15, 16],
-          fill: false,
-          borderColor: '#654321'
+          fill: false
         },
         {
           label: 'Alex Zhao 4',
           data: [1, 4, 9, 16, 25, 36, 49],
-          fill: false,
-          borderColor: '#142536'
+          fill: false
         }
       ]
     };
 
     // setting colors using d3's scheme categories
     for (let i = 0; i < this.data.datasets.length; i++) {
-      this.data.datasets[i].borderColor = this.color[i * 2];
-      this.data.datasets[i].backgroundColor = this.color[i * 2 + 1];
+      // this.data.datasets[i].borderColor = this.color[i * 2];
+      // this.data.datasets[i].backgroundColor = this.color[i * 2 + 1];
+      this.data.datasets[i].borderColor = this.color[i];
     }
 
     // find max value of data and set as dataMax
@@ -118,7 +113,7 @@ export class GitCommitGraphComponent implements OnInit {
           this.update();
         },
         onHover: (event, item) => {
-
+          // TODO: legend styling with legend html?
         }
       },
       scales: {
