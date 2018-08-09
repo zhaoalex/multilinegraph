@@ -25,6 +25,7 @@ export class MultiLineChartComponent implements OnInit {
 
   ngOnInit() {
     this.color = d3.scaleOrdinal(d3.schemeCategory10).range();
+    // this.shuffle(this.color);
 
     // this.data = {
     //   labels: ['Jun 26', 'Jun 27', 'Jun 28', 'Jun 29', 'Jun 30', 'Jul 1', 'Jul 2'],
@@ -127,4 +128,12 @@ export class MultiLineChartComponent implements OnInit {
     // workaround for multiple chart.js graphs on one page
     return dataset._meta[Object.keys(dataset._meta)[0]];
   }
+
+  // // Durstenfeld shuffle
+  // shuffle(arr: Array<string>) {
+  //   for (let i = arr.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [arr[i], arr[j]] = [arr[j], arr[i]];
+  //   }
+  // }
 }
