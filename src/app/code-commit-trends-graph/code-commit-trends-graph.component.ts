@@ -31,5 +31,7 @@ export class CodeCommitTrendsGraphComponent implements OnInit {
     };
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // TODO: hook to a service for data
+  }
 }

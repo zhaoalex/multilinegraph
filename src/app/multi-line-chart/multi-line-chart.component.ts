@@ -14,7 +14,7 @@ export class MultiLineChartComponent implements OnInit {
   @Input() data: any;
   options: any;
 
-  title = 'Overview';
+  title = 'Overview (click legend item to focus)';
 
   color: any;
 
