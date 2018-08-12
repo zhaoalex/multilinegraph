@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import * as d3 from 'd3';
 import d3Tip from 'd3-tip';
 
 @Component({
   selector: 'app-code-coverage-graph',
   templateUrl: './code-coverage-graph.component.html',
-  styleUrls: ['./code-coverage-graph.component.css']
+  styleUrls: ['./code-coverage-graph.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class CodeCoverageGraphComponent implements OnInit {
   dataset = [
@@ -23,7 +24,7 @@ export class CodeCoverageGraphComponent implements OnInit {
 
   // donut options
   donutWidth = 50; // 50 pixels
-  padAngle = 0.0009; // whitespace between arcs
+  padAngle = 0.001; // whitespace between arcs
   labelArcDist = 15;
 
   // legend options
@@ -52,7 +53,7 @@ export class CodeCoverageGraphComponent implements OnInit {
 
     const tip = d3Tip()
       .attr('class', 'd3-tip')
-      .html(d => 'blah');
+      .html(d => `${d.data.label}: ${d.data.count}`);
 
     const svg = d3.select('.code-coverage-graph')
     .append('svg')
@@ -118,8 +119,6 @@ export class CodeCoverageGraphComponent implements OnInit {
   //       //.text(Math.round(10000 * d.data.count / sum) / 100 + '%');
   //   })*/
 
-  // // slices.call(tip);
-
     // create lines connecting chart to text
     const lines = svg.select('.lines')
       .selectAll('polyline')
@@ -140,26 +139,24 @@ export class CodeCoverageGraphComponent implements OnInit {
       .attr('stroke', d => this.color(d.data.label))
       .style('stroke-width', '1.5px');
 
-    // mouseover commands
+    // mouse listeners
     slices.on('mouseover', (d, i, nodes) => {
       d3.select(nodes[i])
-        .style('fill-opacity', '1.0');
+        .style('fill-opacity', '1.0'); // makes the slice darker in color
       tip.show(d, nodes[i]);
-      // probably want something like a tooltip, other sections fade, moveover section creates a shadow, maybe expands outwards a little?
     });
-
-    /* slices.on('mousemove', d => {
-      console.log('mouse move');
-      tip.html(d => {
-
-      })
-    }) */
 
     slices.on('mouseout', (d, i, nodes) => {
       d3.select(nodes[i])
         .style('fill-opacity', '0.85');
       tip.hide(d, nodes[i]);
     });
+
+  // create text in middle of chart
+  const midText = svg.append('text')
+    .attr('text-anchor', 'middle')
+    .text(`Total: ${sum}`)
+    .style('font-size', '1.5em');
 
 
   // /*
