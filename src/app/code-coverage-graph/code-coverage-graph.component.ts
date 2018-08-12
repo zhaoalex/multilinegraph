@@ -57,8 +57,11 @@ export class CodeCoverageGraphComponent implements OnInit {
 
     const svg = d3.select('.code-coverage-graph')
     .append('svg')
-      .attr('width', this.width + this.margin.left + this.margin.right)
-      .attr('height', this.height + this.margin.top + this.margin.bottom)
+      // .attr('width', this.width + this.margin.left + this.margin.right)
+      // .attr('height', this.height + this.margin.top + this.margin.bottom)
+      .attr('preserveAspectRatio', 'xMinYMin meet')
+      .attr('viewBox', '0 0 500 500')
+      .classed('svg-content', true)
     .append('g')
       .attr('transform', `translate(${this.radius * 2}, ${this.radius * 2})`)
     .call(tip);
@@ -156,7 +159,7 @@ export class CodeCoverageGraphComponent implements OnInit {
   const midText = svg.append('text')
     .attr('text-anchor', 'middle')
     .text(`Total: ${sum}`)
-    .style('font-size', '1.5em');
+    .style('font-size', '1.75em');
 
 
   // /*

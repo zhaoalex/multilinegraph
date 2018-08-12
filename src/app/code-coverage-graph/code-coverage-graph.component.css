@@ -1,3 +1,19 @@
+.code-coverage-graph {
+  display: inline-block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%;
+  vertical-align: top;
+  overflow: hidden;
+}
+
+.svg-content {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 .legend {
   font-size: 12px;
   font-family: Helvetica, Arial, sans-serif;
@@ -5,7 +21,7 @@
 
 text {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 10px;
+  font-size: 0.7em;
   text-anchor: middle;
   fill: black;
 }
