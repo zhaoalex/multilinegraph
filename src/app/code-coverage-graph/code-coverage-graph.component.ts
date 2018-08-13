@@ -9,12 +9,7 @@ import d3Tip from 'd3-tip';
   encapsulation: ViewEncapsulation.None
 })
 export class CodeCoverageGraphComponent implements OnInit {
-  dataset = [
-    { label: 'Unit Test Success', count: 450 },
-    { label: 'Unit Test Failure', count: 20 },
-    { label: 'Unit Test Skipped', count: 4 },
-    { label: 'Unit Test Error', count: 1 }
-  ];
+  data: any;
 
   // size options
   margin = { top: 10, right: 10, bottom: 10, left: 10 };
@@ -24,7 +19,7 @@ export class CodeCoverageGraphComponent implements OnInit {
 
   // donut options
   donutWidth = 50; // 50 pixels
-  padAngle = 0.001; // whitespace between arcs
+  padAngle = 0.01; // whitespace between arcs
   labelArcDist = 15;
 
   // legend options
@@ -38,6 +33,13 @@ export class CodeCoverageGraphComponent implements OnInit {
   constructor() {
     this.color = d3.scaleOrdinal(d3.schemeCategory10);
 
+    this.data = [
+      { label: 'Unit Test Success', count: 450 },
+      { label: 'Unit Test Failure', count: 20 },
+      { label: 'Unit Test Skipped', count: 4 },
+      { label: 'Unit Test Error', count: 1 }
+    ];
+
   }
 
   midAngle(d: any): number {
@@ -49,7 +51,7 @@ export class CodeCoverageGraphComponent implements OnInit {
   }
 
   redraw() {
-    const sum = d3.sum(this.dataset.map(d => d.count));
+    const sum = d3.sum(this.data.map(d => d.count));
 
     const tip = d3Tip()
       .attr('class', 'd3-tip')
@@ -86,7 +88,7 @@ export class CodeCoverageGraphComponent implements OnInit {
     // create donut slices
     const slices = svg.select('.slices')
       .selectAll('path')
-      .data(pie(this.dataset))
+      .data(pie(this.data))
       .enter().append('path')
       .attr('d', arc)
       .attr('fill', d => this.color(d.data.label))
@@ -95,7 +97,7 @@ export class CodeCoverageGraphComponent implements OnInit {
     // create text labels
     const labels = svg.select('.labels')
       .selectAll('text')
-      .data(pie(this.dataset))
+      .data(pie(this.data))
       .enter().append('text')
       .text(d => `${d.data.label}: ${Math.round(10000 * d.data.count / sum) / 100}%`)
       .attr('dy', '0.35em')
@@ -105,7 +107,7 @@ export class CodeCoverageGraphComponent implements OnInit {
         // if area too small, move label to avoid overlap
         const percent = (d.endAngle - d.startAngle) / (2 * Math.PI) * 100;
         if (percent < 3) {
-          cent[1] += i * 15;
+          cent[1] -= i * 15;
         }
         return `translate(${cent})`;
       })
@@ -125,7 +127,7 @@ export class CodeCoverageGraphComponent implements OnInit {
     // create lines connecting chart to text
     const lines = svg.select('.lines')
       .selectAll('polyline')
-      .data(pie(this.dataset))
+      .data(pie(this.data))
       .enter()
       .append('polyline')
       .attr('points', (d, i) => {
@@ -134,7 +136,7 @@ export class CodeCoverageGraphComponent implements OnInit {
         // if area too small, move label to avoid overlap
         const percent = (d.endAngle - d.startAngle) / (2 * Math.PI) * 100;
         if (percent < 3) {
-          pos[1] += i * 15;
+          pos[1] -= i * 15;
         }
         return [arc.centroid(d), labelArc.centroid(d), pos];
       })
