@@ -1,4 +1,4 @@
-.code-coverage-graph {
+/* .code-coverage-graph {
   display: inline-block;
   position: relative;
   width: 100%;
@@ -12,7 +12,7 @@
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 
 .legend {
   font-size: 12px;
@@ -21,7 +21,8 @@
 
 text {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 0.7em;
+  font-size: 0.725em;
+  font-weight: 600;
   text-anchor: middle;
   fill: black;
 }

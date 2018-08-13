@@ -1,6 +1,12 @@
-<ngx-charts-number-card
+<!-- <ngx-charts-number-card
   [view]="view"
   [scheme]="colorScheme"
   [results]="single"
   (select)="onSelect($event)">
-</ngx-charts-number-card>
+</ngx-charts-number-card> -->
+<div class="code-complexity-graph">
+  <div class="code-complexity-graph-box" *ngFor="let d of data" [ngStyle]="{'background-color': d.color }">
+    <p class="code-complexity-graph-value">{{ d.value }}</p>
+    <p class="code-complexity-graph-name">{{ d.name }}</p>
+  </div>
+</div>

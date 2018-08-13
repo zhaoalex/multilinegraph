@@ -14,11 +14,11 @@ export class CodeCoverageGraphComponent implements OnInit {
   // size options
   margin = { top: 10, right: 10, bottom: 10, left: 10 };
   width = 500 - this.margin.left - this.margin.right;
-  height = 500 - this.margin.top - this.margin.bottom;
-  radius = Math.min(this.width, this.height) / 4;
+  height = 300 - this.margin.top - this.margin.bottom;
+  radius = Math.min(this.width, this.height) / 2.5;
 
   // donut options
-  donutWidth = 50; // 50 pixels
+  donutWidth = this.radius / 2.34; // 50% empty
   padAngle = 0.01; // whitespace between arcs
   labelArcDist = 15;
 
@@ -62,10 +62,11 @@ export class CodeCoverageGraphComponent implements OnInit {
       // .attr('width', this.width + this.margin.left + this.margin.right)
       // .attr('height', this.height + this.margin.top + this.margin.bottom)
       .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', '0 0 500 500')
+      .attr('viewBox', `0 0 ${this.width + this.margin.left + this.margin.right} ${this.height + this.margin.top + this.margin.bottom}`)
       .classed('svg-content', true)
     .append('g')
-      .attr('transform', `translate(${this.radius * 2}, ${this.radius * 2})`)
+      .attr('transform',
+        `translate(${(this.width + this.margin.left + this.margin.right) / 2}, ${(this.height + this.margin.top + this.margin.bottom) / 2})`)
     .call(tip);
 
     svg.append('g').attr('class', 'slices');
@@ -107,7 +108,7 @@ export class CodeCoverageGraphComponent implements OnInit {
         // if area too small, move label to avoid overlap
         const percent = (d.endAngle - d.startAngle) / (2 * Math.PI) * 100;
         if (percent < 3) {
-          cent[1] -= i * 15;
+          cent[1] += (i * 15) - 10;
         }
         return `translate(${cent})`;
       })
@@ -136,7 +137,7 @@ export class CodeCoverageGraphComponent implements OnInit {
         // if area too small, move label to avoid overlap
         const percent = (d.endAngle - d.startAngle) / (2 * Math.PI) * 100;
         if (percent < 3) {
-          pos[1] -= i * 15;
+          pos[1] += (i * 15) - 10;
         }
         return [arc.centroid(d), labelArc.centroid(d), pos];
       })
@@ -161,10 +162,9 @@ export class CodeCoverageGraphComponent implements OnInit {
   const midText = svg.append('text')
     .attr('text-anchor', 'middle')
     .text(`Total: ${sum}`)
-    .style('font-size', '1.75em');
+    .style('font-size', '1.4em');
 
 
-  // /*
   // var legend = svg.selectAll('.legend')
   //   .data(color.domain())
   //   .enter()
@@ -188,9 +188,5 @@ export class CodeCoverageGraphComponent implements OnInit {
   //   .attr('x', legendRectSize + legendSpacing)
   //   .attr('y', legendRectSize - legendSpacing)
   //   .text(d => { return d; });
-  //   */
-
-
   }
-
 }

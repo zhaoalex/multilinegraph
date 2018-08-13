@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @Component({
   selector: 'app-code-complexity-graph',
@@ -7,36 +6,44 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
   styleUrls: ['./code-complexity-graph.component.css']
 })
 export class CodeComplexityGraphComponent implements OnInit {
-  view: any[] = [350, 250];
+  // view: any[] = [350, 250];
   colorScheme = {
-    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    domain: ['#1CBCD8', '#FF8D60', '#FF586B', '#AAAAAA']
   };
-  single: any;
+  data: any;
+  // single: any;
 
   constructor() {
-    this.single = [
+    this.data = [
       {
-        'name': 'Complexity/Func',
-        'value': 3.2
-      },
-      {
-        'name': 'Complexity/File',
-        'value': 30
+        'name': 'Cognitive Complexity',
+        'value': 3652
       },
       {
         'name': 'Complexity/Class',
-        'value': 15.2
+        'value': 23.5
+      },
+      {
+        'name': 'Complexity/File',
+        'value': 24.4
+      },
+      {
+        'name': 'Complexity/Function',
+        'value': 1.5
       }
     ];
 
-    Object.assign(this, { single: this.single });
+    // assign colors
+    this.data.forEach((d, i) => { d.color = this.colorScheme.domain[i]; });
+
+    // Object.assign(this, { single: this.single });
   }
 
   ngOnInit() {
   }
 
-  onSelect(event) {
-    console.log(event);
-  }
+  // onSelect(event) {
+  //   console.log(event);
+  // }
 
 }
