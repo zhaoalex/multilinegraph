@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class CodeComplexityGraphComponent implements OnInit {
   // view: any[] = [350, 250];
   colorScheme = {
-    domain: ['#1CBCD8', '#FF8D60', '#FF586B', '#AAAAAA']
+    domain: ['#1CBCD8', '#FF8D60', '#FF586B', '#5FD86C']
   };
   data: any;
   // single: any;
